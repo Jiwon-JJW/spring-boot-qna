@@ -37,12 +37,6 @@ public class QuestionController {
         return "redirect:/";
     }
 
-    @GetMapping
-    public String questionList(Model model) {
-        model.addAttribute("question", questionService.getQuestionList());
-        return "index";
-    }
-
     @GetMapping("/{id}")
     public String question(@PathVariable long id, Model model) {
         model.addAttribute("question", questionService.getQuestionById(id));

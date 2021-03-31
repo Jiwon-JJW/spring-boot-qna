@@ -7,6 +7,10 @@ import com.codessquad.qna.exception.NoQuestionException;
 import com.codessquad.qna.exception.NoUserException;
 import com.codessquad.qna.repository.QuestionRepository;
 import com.codessquad.qna.web.HttpSessionUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
@@ -35,12 +39,14 @@ public class QuestionService {
         if (!result.isValid()) {
             return result;
         }
-        question.deleted();
+        questionRepository.delete(question);
         return result;
     }
 
-    public List<Question> getQuestionList() {
-        return questionRepository.findAllByDeletedIsFalse();
+    @Transactional
+    public Page<Question> questionListAll(int pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber-1, 1, Sort.Direction.DESC, "id");
+        return questionRepository.findAll(pageable);
     }
 
     public Question getQuestionById(Long id) {

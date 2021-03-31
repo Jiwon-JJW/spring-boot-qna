@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="kr">
+<html lang="kr" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     {{> base/header}}
 </head>
@@ -37,13 +37,23 @@
                 <div class="col-md-3"></div>
                 <div class="col-md-6 text-center">
                     <ul class="pagination center-block" style="display:inline-block;">
-                        <li><a href="#">«</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">»</a></li>
+                        {{#totalPages}}
+                        {{#hasPrev}}
+                        <li class="page-item"><a class="page-link" href="/page/{{previous}}">«</a></li>
+                        {{/hasPrev}}
+                        {{^hasPrev}}
+                        <li class="page-item disabled"><a class="page-link">«</a></li>
+                        {{/hasPrev}}
+                        <li class="pagination_button {{#active}} active {{/active}}">
+                            <a href="/page/{{pageable.pageNumber}}">{{pageable.pageNumber}}</a>
+                        </li>
+                        {{#hasNext}}
+                        <li class="page-item"><a class="page-link" href="/page/{{next}}">»</a></li>
+                        {{/hasNext}}
+                        {{^hasNext}}
+                        <li class="page-item disabled"><a class="page-link">»</a></li>
+                        {{/hasNext}}
+                        {{/totalPages}}
                     </ul>
                 </div>
                 <div class="col-md-3 qna-write">

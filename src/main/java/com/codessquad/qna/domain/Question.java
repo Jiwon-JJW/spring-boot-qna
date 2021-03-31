@@ -55,7 +55,6 @@ public class Question extends AbstractEntity {
 
     public void deleteAnswer(Answer answer) {
         if (answers.contains(answer)) {
-            answer.deleted();
             answerCount--;
         }
     }
