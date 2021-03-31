@@ -45,7 +45,7 @@ public class QuestionService {
 
     @Transactional
     public Page<Question> questionListAll(int pageNumber) {
-        Pageable pageable = PageRequest.of(pageNumber-1, 1, Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(pageNumber-1, 15, Sort.Direction.DESC, "id");
         return questionRepository.findAll(pageable);
     }
 

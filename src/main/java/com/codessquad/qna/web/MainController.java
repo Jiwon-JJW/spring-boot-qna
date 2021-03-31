@@ -30,7 +30,7 @@ public class MainController {
     public String listByPage(@PathVariable("pageNumber")int pageNumber, Model model) {
         Page page = questionService.questionListAll(pageNumber);
         Pageable pageable = page.getPageable();
-        PageList pageList = new PageList(page, pageable);
+        PageList pageList = new PageList(page, pageable, pageNumber);
         model.addAttribute("totalPages", pageList);
         model.addAttribute("question", page.getContent());
         return "index";

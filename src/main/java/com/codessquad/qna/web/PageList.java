@@ -4,6 +4,7 @@ import com.codessquad.qna.domain.Question;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PageList {
@@ -13,13 +14,34 @@ public class PageList {
     private int next;
     private Page<Question> questions;
     private Pageable pageable;
-    private List<Integer> pageNumbers;
+    private List<Integer> pageNumbers = new ArrayList<>(COUNT_NUMBERS_TO_SHOW);
 
 
-    public PageList(Page<Question> questions, Pageable pageable) {
+    public PageList(Page<Question> questions, Pageable pageable, int pageNumber) {
         this.questions = questions;
         this.pageable = pageable;
+        this.previous = questions.previousOrFirstPageable().getPageNumber();
+        if(hasNext()) {
+            this.next = questions.nextPageable().getPageNumber();
+        } else {
+            this.next = questions.getNumber();
+        }
+        createPageNumbers();
+    }
 
+    private List<Integer> createPageNumbers() {
+        int currentPage = questions.getNumber();
+        int totalPages = questions.getTotalPages();
+        int startNumber = (currentPage / COUNT_NUMBERS_TO_SHOW) * COUNT_NUMBERS_TO_SHOW;
+        int endNumber = startNumber + COUNT_NUMBERS_TO_SHOW;
+
+        for (int i = startNumber; i < endNumber; i++) {
+            pageNumbers.add(i + PAGE_INDEX_TO_SHOW);
+            if (i == totalPages - PAGE_INDEX_TO_SHOW) {
+                break;
+            }
+        }
+        return pageNumbers;
     }
 
     public int getPrevious() {

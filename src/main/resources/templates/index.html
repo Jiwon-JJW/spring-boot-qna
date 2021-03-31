@@ -44,9 +44,13 @@
                         {{^hasPrev}}
                         <li class="page-item disabled"><a class="page-link">«</a></li>
                         {{/hasPrev}}
+
+                        {{#pageNumbers}}
                         <li class="pagination_button {{#active}} active {{/active}}">
-                            <a href="/page/{{pageable.pageNumber}}">{{pageable.pageNumber}}</a>
+                            <a href="/page/{{this}}">{{this}}</a>
                         </li>
+                        {{/pageNumbers}}
+
                         {{#hasNext}}
                         <li class="page-item"><a class="page-link" href="/page/{{next}}">»</a></li>
                         {{/hasNext}}
