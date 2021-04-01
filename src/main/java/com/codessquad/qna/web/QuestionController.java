@@ -47,7 +47,6 @@ public class QuestionController {
     public String questionList(Model model, @PageableDefault(size = 5, sort = "id") Pageable pageable) {
 
         model.addAttribute("question", questionService.getQuestionList(pageable));
-        model.addAttribute("questionString", questionService.getQuestionList(pageable).toString());
         model.addAttribute("previous", pageable.previousOrFirst().getPageNumber());
         model.addAttribute("next", pageable.next().getPageNumber());
         model.addAttribute("checkNext", questionService.hasQuestionInNextPage(pageable));
