@@ -18,19 +18,17 @@ function addAnswer(e) {
         error: error,
         success: ok
     });
-}
 
-function error() {
-}
+    function error() {
+    }
 
-function ok(data, status) {
-    console.log(data);
-
-    var answerTemplate = $("#answerTemplate").html();
-    var template = answerTemplate.format(data.writer.userId, data.formattedDateTime, data.contents, data.question.id, data.id);
-    $(".qna-comment-slipp-articles").prepend(template);
-
-    $("textarea[name=contents]").val("");
+    function ok(data, status) {
+        console.log(data);
+        const answerTemplate = $("#answerTemplate").html();
+        const template = answerTemplate.format(data.writer.userId, data.formattedDateTime, data.contents, data.question.id, data.id);
+        $(".qna-comment-slipp-articles").append(template);
+        $(".answer-write textarea").val("");
+    }
 }
 
 $(".qna-comment-slipp-articles").on('click', '.link-delete-article', deleteAnswer);
@@ -64,4 +62,4 @@ String.prototype.format = function () {
             : match
             ;
     });
-}
+};

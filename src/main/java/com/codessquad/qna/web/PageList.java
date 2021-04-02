@@ -16,8 +16,7 @@ public class PageList {
     private Pageable pageable;
     private List<Integer> pageNumbers = new ArrayList<>(COUNT_NUMBERS_TO_SHOW);
 
-
-    public PageList(Page<Question> questions, Pageable pageable, int pageNumber) {
+    public PageList(Page<Question> questions, Pageable pageable) {
         this.questions = questions;
         this.pageable = pageable;
         this.previous = questions.previousOrFirstPageable().getPageNumber();

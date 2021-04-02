@@ -4,18 +4,15 @@ import com.codessquad.qna.domain.Question;
 import com.codessquad.qna.domain.Result;
 import com.codessquad.qna.domain.User;
 import com.codessquad.qna.exception.NoQuestionException;
-import com.codessquad.qna.exception.NoUserException;
 import com.codessquad.qna.repository.QuestionRepository;
-import com.codessquad.qna.web.HttpSessionUtils;
+import com.codessquad.qna.web.PageList;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 public class QuestionService {
@@ -47,6 +44,11 @@ public class QuestionService {
     public Page<Question> questionListAll(int pageNumber) {
         Pageable pageable = PageRequest.of(pageNumber-1, 15, Sort.Direction.DESC, "id");
         return questionRepository.findAll(pageable);
+    }
+
+    public PageList getPageList(Page page) {
+        Pageable pageable = page.getPageable();
+        return new PageList(page, pageable);
     }
 
     public Question getQuestionById(Long id) {
