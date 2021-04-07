@@ -68,6 +68,10 @@ public class UserService {
     }
 
     public Result valid(User user, String password) {
+        if (user == null) {
+            return Result.fail("계정이 존재하지 않습니다. 회원가입을 먼저 진행해주세요");
+        }
+
         if (!user.isMatchingPassword(password)) {
             return Result.fail("비밀번호를 확인하여 주세요");
         }

@@ -43,9 +43,9 @@ public class Question extends AbstractEntity {
         return this.writer.equals(loginUser);
     }
 
-    public void update(Question updateQuestion) {
-        this.title = updateQuestion.title;
-        this.contents = updateQuestion.contents;
+    public void update(String updateTitle, String updateContents) {
+        this.title = updateTitle;
+        this.contents = updateContents;
     }
 
     public void addAnswer(Answer answer) {
@@ -55,7 +55,6 @@ public class Question extends AbstractEntity {
 
     public void deleteAnswer(Answer answer) {
         if (answers.contains(answer)) {
-            answer.deleted();
             answerCount--;
         }
     }

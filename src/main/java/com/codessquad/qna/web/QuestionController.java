@@ -37,12 +37,6 @@ public class QuestionController {
         return "redirect:/";
     }
 
-    @GetMapping
-    public String questionList(Model model) {
-        model.addAttribute("question", questionService.getQuestionList());
-        return "index";
-    }
-
     @GetMapping("/{id}")
     public String question(@PathVariable long id, Model model) {
         model.addAttribute("question", questionService.getQuestionById(id));
@@ -66,8 +60,8 @@ public class QuestionController {
     }
 
     @PutMapping("{id}")
-    public String updateQuestion(@PathVariable long id, Question updateQuestion) {
-        questionService.updateQuestion(id, updateQuestion);
+    public String updateQuestion(@PathVariable long id, String title, String contents) {
+        questionService.updateQuestion(id, title, contents);
         return "redirect:/";
     }
 

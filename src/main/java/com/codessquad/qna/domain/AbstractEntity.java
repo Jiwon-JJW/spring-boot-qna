@@ -5,10 +5,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -19,7 +16,7 @@ public class AbstractEntity {
     private static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonProperty
     private Long id;
 
@@ -28,9 +25,6 @@ public class AbstractEntity {
 
     @LastModifiedDate
     private LocalDateTime modifiedDate;
-
-    private boolean deleted;
-
 
     public Long getId() {
         return id;
@@ -51,10 +45,6 @@ public class AbstractEntity {
 
     public boolean isMatchingId(long id) {
         return this.id == id;
-    }
-
-    public void deleted() {
-        this.deleted = true;
     }
 
     @Override
